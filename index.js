@@ -2,7 +2,23 @@ let num1
 let num2
 let operator
 
+//Set up numerical buttons to listen for clicks
+let buttons = document.getElementsByClassName('calc-button')
+for(let i=0;i<buttons.length;i++){
+    buttons[i].addEventListener('click', handleNumClick);
+}
 
+//Handle the click event and update the display
+function handleNumClick(event){
+    let buttonVal = parseInt(event.target.textContent)
+    updateDisplay(buttonVal)
+}
+
+//Update display with button pressed
+function updateDisplay(input){
+    let display = document.getElementById('calc-display')
+    display.textContent = input;
+}
 
 
 function operate(num1, num2, operator){
@@ -59,45 +75,3 @@ function divide(a, b) {
         return a / b;
     }
 }
-
-/*Tests*/
-console.log(`1+1: ${add(1, 1)}`);
-console.log(`10-5: ${subtract(10, 5)}`);
-console.log(`5-10: ${subtract(5, 10)}`);
-console.log(`5*5: ${multiply(5, 5)}`);
-console.log(`-5*5: ${multiply(-5, 5)}`);
-console.log(`5*0: ${multiply(5, 0)}`);
-console.log(`100/10: ${divide(100, 10)}`);
-//Should throw divide by zero error and return -1
-console.log(`10/0: ${divide(10, 0)}`);
-function add(a,b){
-    return a+b
-}
-
-function subtract(a,b){
-    return a-b
-}
-
-function multiply(a,b){
-    return a*b
-}
-
-function divide(a,b){
-    if(b===0){
-        console.error("Divide By 0 Error")
-        return -1
-    }else{
-        return a/b
-    }
-}
-
-//TESTS
-console.log(`1+1: ${add(1,1)}`)
-console.log(`10-5: ${subtract(10,5)}`)
-console.log(`5-10: ${subtract(5,10)}`)
-console.log(`5*5: ${multiply(5,5)}`)
-console.log(`-5*5: ${multiply(-5,5)}`)
-console.log(`5*0: ${multiply(5,0)}`)
-console.log(`100/10: ${divide(100,10)}`)
-//Should throw divide by zero error and return -1
-console.log(`10/0: ${divide(10,0)}`)
