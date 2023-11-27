@@ -1,6 +1,7 @@
 let num1 = null
 let num2 = null
 let operator = null
+let decimalClicked = false; //track whether we are dealing with decimals
 
 //Set up numerical buttons to listen for clicks
 let buttons = document.getElementsByClassName('calc-button')
@@ -47,6 +48,10 @@ function handleSpecialClick(event){
         case `AC`: //clear
             console.log(`User Pressed Clear: ${special}`)
             clearCalculator()
+            break;
+        case `.`:
+            console.log(`User Pressed Decimal Point: ${special}`)
+            decimalClicked = true;
         default:
             break;
     }
@@ -54,13 +59,22 @@ function handleSpecialClick(event){
 
 //Handle the click event and update the display
 function handleNumClick(event){
-    let buttonVal = parseInt(event.target.textContent)
-    if (operator === null) {
-        num1 = num1 === null ? buttonVal : num1 * 10 + buttonVal;
+    let number = event.target.textContent;
+    if (decimalClicked) { //check if decimal was clicked
+        if (operator === null) { //check if operator pressed, if not we are on num1
+            num1 = num1 === null ? parseFloat('0.' + number) : parseFloat(num1 + '.' + number); //if num1 isn't entered, prepend 0.
+        } else {
+            num2 = num2 === null ? parseFloat('0.' + number) : parseFloat(num2 + '.' + number); //if num2 isn't entered yet, prepend 0.
+        }
+        decimalClicked = false;
     } else {
-        num2 = num2 === null ? buttonVal : num2 * 10 + buttonVal;
+        if (operator === null) {
+            num1 = num1 === null ? parseFloat(number) : parseFloat(num1 + number);
+        } else {
+            num2 = num2 === null ? parseFloat(number) : parseFloat(num2 + number);
+        }
     }
-    console.log(`User Pressed: ${buttonVal}`)
+    console.log(`User Pressed Number: ${number}`);
 }
 
 function calculateResult(){
@@ -68,15 +82,19 @@ function calculateResult(){
     switch (operator) {
         case `÷`:
             result = num1 / num2
+            result = parseFloat(result.toFixed(2))
             break;
         case `×`:
             result = num1 * num2
+            result = parseFloat(result.toFixed(2))
             break;
         case `−`:
             result = num1 - num2
+            result = parseFloat(result.toFixed(2))
             break;
         case `+`:
             result = num1 + num2
+            result = parseFloat(result.toFixed(2))
             break;
         case null:
             break;
