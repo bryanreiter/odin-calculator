@@ -3,6 +3,8 @@ html{
 }
 
 #calc-container{
+    display: flex;
+    flex-direction: column;
     width: 400px;
     height: 500px;
     background-color: #f2f2f2;
@@ -24,4 +26,22 @@ html{
     line-height: 50px;
     padding-right: 10px;
     font-size: 40px;
+}
+
+#buttons-container{
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 50px;
+}
+
+.calc-button{
+    border: 2px solid #000; 
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    border-radius: 10px;
+    margin: 10px;
 }
