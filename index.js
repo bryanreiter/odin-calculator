@@ -2,6 +2,7 @@ let num1 = null
 let num2 = null
 let operator = null
 let decimalClicked = false; //track whether we are dealing with decimals
+let display = document.getElementById('calc-display')
 
 //Set up numerical buttons to listen for clicks
 let buttons = document.getElementsByClassName('calc-button')
@@ -26,17 +27,21 @@ function handleSpecialClick(event){
         case `÷`: //divide
             console.log(`User Pressed Divide: ${special}`)
             operator = special
+            display.textContent += ' ' + special + ' '
             break;
         case `×`: //multiply
             console.log(`User Pressed Multiply: ${special}`)
+            display.textContent += ' ' + special + ' '
             operator = special
             break;
         case `−`: //subtract
             console.log(`User Pressed Subtract: ${special}`)
+            display.textContent += ' ' + special + ' '
             operator = special
             break;
         case `+`: //addition
             console.log(`User Pressed Add: ${special}`)
+            display.textContent += ' ' + special + ' '
             operator = special
             break;
         case `=`: //equals
@@ -51,6 +56,7 @@ function handleSpecialClick(event){
             break;
         case `.`:
             console.log(`User Pressed Decimal Point: ${special}`)
+            display.textContent += '' + special + ''
             decimalClicked = true;
         default:
             break;
@@ -74,6 +80,7 @@ function handleNumClick(event){
             num2 = num2 === null ? parseFloat(number) : parseFloat(num2 + number);
         }
     }
+    display.textContent += number
     console.log(`User Pressed Number: ${number}`);
 }
 
@@ -83,18 +90,22 @@ function calculateResult(){
         case `÷`:
             result = num1 / num2
             result = parseFloat(result.toFixed(2))
+            display.textContent = result
             break;
         case `×`:
             result = num1 * num2
             result = parseFloat(result.toFixed(2))
+            display.textContent = result
             break;
         case `−`:
             result = num1 - num2
             result = parseFloat(result.toFixed(2))
+            display.textContent = result
             break;
         case `+`:
             result = num1 + num2
             result = parseFloat(result.toFixed(2))
+            display.textContent = result
             break;
         case null:
             break;
@@ -112,14 +123,9 @@ function clearCalculator(){
     num1=null
     num2=null
     operator=null
+    display.textContent = null
     console.log('Calculator cleared')
 }
-
-//Update display with button pressed
-function updateDisplay(input){
-    let display = document.getElementById('calc-display')
-}
-
 
 function operate(num1, num2, operator){
     //calls calculator functions
