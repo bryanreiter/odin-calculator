@@ -13,14 +13,42 @@ for(let i=0;i<buttons.length;i++){
 }
 
 function handleSpecialClick(event){
+    //specials don't get shown, but instead have a special function (add, subtract, multiply, divide, sign-flip, percentage, clear, etc)
     let special = event.target.textContent
-    updateDisplay(special)
+    switch (special) {
+        case '±': //flip sign
+            console.log(`User Pressed Plus Or Minus: ${special}`)
+            break;
+        case `%`: //convert to decimal
+            console.log(`User Pressed Percent: ${special}`)
+            break;
+        case `÷`: //divide
+            console.log(`User Pressed Divide: ${special}`)
+            break;
+        case `×`: //multiply
+            console.log(`User Pressed Multiply: ${special}`)
+            break;
+        case `−`:
+            console.log(`User Pressed Subtract: ${special}`)
+            break;
+        case `+`:
+            console.log(`User Pressed Add: ${special}`)
+            break;
+        case `=`:
+            console.log(`User Pressed Equals: ${special}`)
+            break;
+        case `AC`:
+            console.log(`User Pressed Clear: ${special}`)
+        default:
+            break;
+    }
 }
 
 //Handle the click event and update the display
 function handleNumClick(event){
     let buttonVal = parseInt(event.target.textContent)
     updateDisplay(buttonVal)
+    console.log(`User Pressed: ${buttonVal}`)
 }
 
 //Update display with button pressed
