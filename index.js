@@ -1,6 +1,6 @@
-let num1
-let num2
-let operator
+let num1 = null
+let num2 = null
+let operator = null
 
 //Set up numerical buttons to listen for clicks
 let buttons = document.getElementsByClassName('calc-button')
@@ -24,21 +24,29 @@ function handleSpecialClick(event){
             break;
         case `÷`: //divide
             console.log(`User Pressed Divide: ${special}`)
+            operator = special
             break;
         case `×`: //multiply
             console.log(`User Pressed Multiply: ${special}`)
+            operator = special
             break;
-        case `−`:
+        case `−`: //subtract
             console.log(`User Pressed Subtract: ${special}`)
+            operator = special
             break;
-        case `+`:
+        case `+`: //addition
             console.log(`User Pressed Add: ${special}`)
+            operator = special
             break;
-        case `=`:
+        case `=`: //equals
             console.log(`User Pressed Equals: ${special}`)
+            if(num1!==null && operator !==null && num2!==null){
+                calculateResult()
+            }
             break;
-        case `AC`:
+        case `AC`: //clear
             console.log(`User Pressed Clear: ${special}`)
+            clearCalculator()
         default:
             break;
     }
@@ -47,14 +55,51 @@ function handleSpecialClick(event){
 //Handle the click event and update the display
 function handleNumClick(event){
     let buttonVal = parseInt(event.target.textContent)
-    updateDisplay(buttonVal)
+    if (operator === null) {
+        num1 = num1 === null ? buttonVal : num1 * 10 + buttonVal;
+    } else {
+        num2 = num2 === null ? buttonVal : num2 * 10 + buttonVal;
+    }
     console.log(`User Pressed: ${buttonVal}`)
+}
+
+function calculateResult(){
+    let result;
+    switch (operator) {
+        case `÷`:
+            result = num1 / num2
+            break;
+        case `×`:
+            result = num1 * num2
+            break;
+        case `−`:
+            result = num1 - num2
+            break;
+        case `+`:
+            result = num1 + num2
+            break;
+        case null:
+            break;
+        default:
+            break;
+    }
+    console.log(`Result: ${result}`)
+    //reset state
+    num1 = result
+    num2 = null
+    operator = null
+}
+
+function clearCalculator(){
+    num1=null
+    num2=null
+    operator=null
+    console.log('Calculator cleared')
 }
 
 //Update display with button pressed
 function updateDisplay(input){
     let display = document.getElementById('calc-display')
-    display.textContent = input;
 }
 
 
