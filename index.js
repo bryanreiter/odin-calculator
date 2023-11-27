@@ -5,7 +5,16 @@ let operator
 //Set up numerical buttons to listen for clicks
 let buttons = document.getElementsByClassName('calc-button')
 for(let i=0;i<buttons.length;i++){
-    buttons[i].addEventListener('click', handleNumClick);
+    if(buttons[i].classList.contains('special')){
+        buttons[i].addEventListener('click', handleSpecialClick)
+    }else{
+        buttons[i].addEventListener('click', handleNumClick);
+    }
+}
+
+function handleSpecialClick(event){
+    let special = event.target.textContent
+    updateDisplay(special)
 }
 
 //Handle the click event and update the display
